@@ -1,6 +1,10 @@
 # BlockChain
-Building a BlockChain
+Simple code to show how a block chain works
 
+## Todo
+Add consensus code so extra nodes can be added
+
+Validate transactions
 
 # Building
 
