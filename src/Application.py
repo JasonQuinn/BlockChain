@@ -3,6 +3,7 @@ from uuid import uuid4
 from flask import Flask, Response, request
 
 from classes.dto.BlockChain import BlockChain
+from src.classes.BlockMiner import BlockMiner
 from src.classes.JsonEncoder import JsonEncoder
 
 app = Flask(__name__)
@@ -11,11 +12,12 @@ app = Flask(__name__)
 node_identifier = str(uuid4()).replace('-', '')
 # Create the chain
 blockChain = BlockChain()
+block_miner = BlockMiner()
 
 
 @app.route('/mine', methods=['GET'])
 def mine():
-    new_proof = blockChain.find_proof_of_work(blockChain.last_block.proof)
+    new_proof = block_miner.find_proof_of_work(blockChain.last_block.proof)
 
     blockChain.new_transaction(
         sender="0",

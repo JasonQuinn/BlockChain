@@ -1,4 +1,5 @@
 import time
+from typing import List
 
 from src.classes.dto.Block import Block
 from src.classes.BlockChainValidator import BlockChainValidator
@@ -7,12 +8,12 @@ from src.classes.dto.Transaction import Transaction
 
 class BlockChain(object):
     def __init__(self):
-        self.chain = []
-        self.new_transactions = []
+        self.chain: List[Block] = []
+        self.new_transactions: List[Transaction] = []
         # Creat 1st block
         self.new_block(100, 1)
 
-    def new_block(self, proof, previous_hash=None):
+    def new_block(self, proof, previous_hash=None) -> Block:
         """
         Creates a new Block and adds it to the chain
         :param proof:
@@ -25,7 +26,7 @@ class BlockChain(object):
         self.chain.append(block)
         return block
 
-    def new_transaction(self, sender, recipient, amount):
+    def new_transaction(self, sender, recipient, amount) -> int:
         """
         Adds a new transaction to the list of transactions
         :param sender:
@@ -37,21 +38,8 @@ class BlockChain(object):
         return self.last_block.index + 1
 
     @property
-    def last_block(self):
+    def last_block(self) -> Block:
         """
         Returns the last Block in the chain
         """
         return self.chain[-1]
-
-    def find_proof_of_work(self, last_proof):
-        """
-        Simple Proof of Work Algorithm:
-         - Find a number p' such that hash(pp') contains leading 4 zeroes, where p is the previous p'
-         - p is the previous proof, and p' is the new proof
-        :param last_proof: <int>
-        :return: <int>
-        """
-        proof = 0
-        while not BlockChainValidator.valid_proof(last_proof, proof):
-            proof = proof + 1
-        return proof

@@ -3,7 +3,7 @@ import hashlib
 
 class BlockChainValidator:
     @staticmethod
-    def valid_proof(last_proof, proof):
+    def validate_proof(last_proof, proof):
         """
         Validates the Proof: Does hash(last_proof, proof) contain 4 leading zeroes?
         :param last_proof: <int> Previous Proof
